@@ -1,15 +1,20 @@
 import http from 'http';
-import app from './app';
+import yenv from "yenv";
+import RouterUsers from './modules/users/presentation/user.route';
+//import ControllerUser from './modules/users/presentation/user.controller';
 
- /*class App{
-    constructor(){
-    
-    }
-    mountRoutes() {
-    }
- }*/
+import App from './app';
 
-const server = http.createServer(app);
-server.listen(3000,() => {
-    console.log('Server running at http://localhost:3000/');
+const env=yenv();
+
+//const controllerUser=new ControllerUser()
+//const routerUsers=new RouterUsers();
+
+const server = http.createServer(App);
+server
+.listen(env.PORT)
+.on("listening",() => console.log(`Server is listening on port ${env.PORT}`))
+.on("error",(error) => {
+console.log("Server error",error);
+process.exit(1);
 });
